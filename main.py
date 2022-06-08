@@ -1,4 +1,6 @@
 import requests
+import os
+import spotipy
 import bs4
 
 
@@ -21,3 +23,12 @@ list_of_song_titles = [tag.get_text().strip() for tag in soup.select(selector=so
 
 print(list_of_song_titles)
 
+spoti = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(client_id=os.environ.get("SPOTIPY_CLIENT_ID"),
+                                                                 client_secret=os.environ.get("SPOTIPY_CLIENT_SECRET"),
+                                                                 redirect_uri=os.environ.get("SPOTIPY_REDIRECT_URI"),
+                                                                 scope="playlist-modify-private",
+                                                                 show_dialog=True,
+                                                                 cache_path="token.txt"))
+
+
+print(spoti)
